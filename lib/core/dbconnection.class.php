@@ -1,8 +1,8 @@
 <?php
 
-define ('HOST', 'pedago02a.univ-avignon.fr') ;
-define ('USER', 'uapv1800810'  ) ;
-define ('PASS', 'MV7PPO' ) ;
+define ('HOST', 'localhost') ;
+define ('USER', ''  ) ;
+define ('PASS', '' ) ;
 define ('DB', 'etd' ) ;
 
 class dbconnection
@@ -14,17 +14,12 @@ class dbconnection
     $this->link = null;
     $this->error = null;
     try{
-        //$this->link = new PDO("host=".HOST." dbname=".DB." user=".USER." password=".PASS);
-        $this->link = new PDO("pgsql:dbname=".DB.";host=".HOST, USER, PASS); 
-        //$dbh = new PDO("pgsql:dbname=$dbname;host=$host", $username, $password ); 
-        
-        //$this->link = new PDO(''); 
        // ici on crée une insance de l''objet PDO pour établir une connexion avec la base de données 
        // cette nouvelle instnace sera assigné à $this->link 
-    }catch(PDOException $e){
+    }catch( PDOException $e ){
         $this->error =  $e->getMessage();
     }
-}
+  }
 
   public function getLastInsertId($att)
   {
@@ -48,6 +43,12 @@ class dbconnection
 
   public function doQueryObject( $sql, $className )
   {
+      $prepared = $this->link->prepare( $sql );
+    $prepared->execute();
+    $res = $prepared->fetchAll( PDO::FETCH_CLASS, $className );
+      
+     return $res;
+      
   }
 
   public function __destruct()

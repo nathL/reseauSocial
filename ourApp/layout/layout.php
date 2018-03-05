@@ -4,13 +4,13 @@
        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
    
     <title>
-     ourApp
+     Ton appli !
     </title>
    
   </head>
 
   <body>
-    <h2>ourApp</h2>
+    <h2>Super c'est ton appli ! </h2>
       <?php include($template_view); ?>
     
   </body>

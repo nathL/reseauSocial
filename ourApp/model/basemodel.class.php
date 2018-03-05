@@ -2,6 +2,44 @@
 
 abstract class basemodel
 {
+    public $data; // ça devrait pas etre en public, notmalment c'est en protected ! 
+    public function __construct(array $row = null)
+    {
+        if($row === null)
+        {
+            //sans param
+            
+        }else
+        {
+            //avec param
+            foreach ($row as $key => $value) {
+              $this->$key = $value;  
+            }
+        }
+        
+    }
+    public function __set($key,$value)
+    {
+        if(array_key_exists($key, $this->data))
+        {
+            $this->data[$key] = $value;
+        }else
+        {
+            $temp = array($key=>$value);
+            $this->data = array_merge($this->data,$temp);
+        }
+    }
+    
+        public function __get($key)
+    {
+        if(array_key_exists($key, $this->data))
+        {
+            return $this->data[$key];
+        }else
+        {
+           return null; // we should raise an exception
+        }
+    }
 
  public function save()
   {
